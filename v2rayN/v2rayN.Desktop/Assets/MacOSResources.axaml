@@ -1,0 +1,58 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+            <SolidColorBrush x:Key="MacWindowFallbackBrush" Color="#FFF3F5F8" />
+            <SolidColorBrush x:Key="MacWindowTintBrush" Color="#B8F5F7FA" />
+            <SolidColorBrush x:Key="MacGlassBrush" Color="#A8FFFFFF" />
+            <SolidColorBrush x:Key="MacGlassStrongBrush" Color="#D6FFFFFF" />
+            <SolidColorBrush x:Key="MacSurfaceBrush" Color="#EAF8F9FB" />
+            <SolidColorBrush x:Key="MacSurfaceSecondaryBrush" Color="#BDE9EDF2" />
+            <SolidColorBrush x:Key="MacTextPrimaryBrush" Color="#EB111318" />
+            <SolidColorBrush x:Key="MacTextSecondaryBrush" Color="#9E3C424B" />
+            <SolidColorBrush x:Key="MacSeparatorBrush" Color="#1F313740" />
+            <SolidColorBrush x:Key="MacGlassStrokeBrush" Color="#8AFFFFFF" />
+            <SolidColorBrush x:Key="MacHoverBrush" Color="#123B82F6" />
+            <SolidColorBrush x:Key="MacSelectedBrush" Color="#243B82F6" />
+            <SolidColorBrush x:Key="MacAccentBrush" Color="#FF0A84FF" />
+            <SolidColorBrush x:Key="MacFocusBrush" Color="#B30A84FF" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+            <SolidColorBrush x:Key="MacWindowFallbackBrush" Color="#FF17191D" />
+            <SolidColorBrush x:Key="MacWindowTintBrush" Color="#C21B1E23" />
+            <SolidColorBrush x:Key="MacGlassBrush" Color="#8F2A2D33" />
+            <SolidColorBrush x:Key="MacGlassStrongBrush" Color="#C42A2D33" />
+            <SolidColorBrush x:Key="MacSurfaceBrush" Color="#DB22252A" />
+            <SolidColorBrush x:Key="MacSurfaceSecondaryBrush" Color="#A4363A42" />
+            <SolidColorBrush x:Key="MacTextPrimaryBrush" Color="#F2FFFFFF" />
+            <SolidColorBrush x:Key="MacTextSecondaryBrush" Color="#A9FFFFFF" />
+            <SolidColorBrush x:Key="MacSeparatorBrush" Color="#30FFFFFF" />
+            <SolidColorBrush x:Key="MacGlassStrokeBrush" Color="#38FFFFFF" />
+            <SolidColorBrush x:Key="MacHoverBrush" Color="#24FFFFFF" />
+            <SolidColorBrush x:Key="MacSelectedBrush" Color="#3D0A84FF" />
+            <SolidColorBrush x:Key="MacAccentBrush" Color="#FF0A84FF" />
+            <SolidColorBrush x:Key="MacFocusBrush" Color="#D10A84FF" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Default">
+            <SolidColorBrush x:Key="MacWindowFallbackBrush" Color="#FFF3F5F8" />
+            <SolidColorBrush x:Key="MacWindowTintBrush" Color="#B8F5F7FA" />
+            <SolidColorBrush x:Key="MacGlassBrush" Color="#A8FFFFFF" />
+            <SolidColorBrush x:Key="MacGlassStrongBrush" Color="#D6FFFFFF" />
+            <SolidColorBrush x:Key="MacSurfaceBrush" Color="#EAF8F9FB" />
+            <SolidColorBrush x:Key="MacSurfaceSecondaryBrush" Color="#BDE9EDF2" />
+            <SolidColorBrush x:Key="MacTextPrimaryBrush" Color="#EB111318" />
+            <SolidColorBrush x:Key="MacTextSecondaryBrush" Color="#9E3C424B" />
+            <SolidColorBrush x:Key="MacSeparatorBrush" Color="#1F313740" />
+            <SolidColorBrush x:Key="MacGlassStrokeBrush" Color="#8AFFFFFF" />
+            <SolidColorBrush x:Key="MacHoverBrush" Color="#123B82F6" />
+            <SolidColorBrush x:Key="MacSelectedBrush" Color="#243B82F6" />
+            <SolidColorBrush x:Key="MacAccentBrush" Color="#FF0A84FF" />
+            <SolidColorBrush x:Key="MacFocusBrush" Color="#B30A84FF" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
+    <x:Double x:Key="MacControlHeight">34</x:Double>
+    <x:Double x:Key="MacToolbarHeight">48</x:Double>
+    <CornerRadius x:Key="MacControlCornerRadius">8</CornerRadius>
+    <CornerRadius x:Key="MacCardCornerRadius">12</CornerRadius>
+    <CornerRadius x:Key="MacFloatingCornerRadius">16</CornerRadius>
+</ResourceDictionary>

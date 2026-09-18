@@ -16,7 +16,7 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-    <DockPanel>
+    <DockPanel Classes="window-content">
         <Menu Margin="{StaticResource Margin4}" DockPanel.Dock="Top">
             <MenuItem x:Name="menuRoutingAdvancedAdd2" Header="{x:Static resx:ResUI.menuRoutingAdvancedAdd}" />
             <MenuItem x:Name="menuRoutingAdvancedImportRules2" Header="{x:Static resx:ResUI.menuRoutingAdvancedImportRules}" />

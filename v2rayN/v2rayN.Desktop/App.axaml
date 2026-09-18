@@ -13,6 +13,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="Assets/GlobalResources.axaml" />
+                <ResourceInclude Source="Assets/MacOSResources.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
@@ -30,6 +31,7 @@
             <Setter Property="dialogHost:DialogHostStyle.BoxShadow" Value="{DynamicResource SemiShadowElevated}" />
             <Setter Property="dialogHost:DialogHostStyle.CornerRadius" Value="6" />
         </Style>
+        <StyleInclude Source="Assets/MacOSStyles.axaml" />
     </Application.Styles>
 
     <TrayIcon.Icons>

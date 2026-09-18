@@ -1,9 +1,12 @@
+using v2rayN.Desktop.Common;
+
 namespace v2rayN.Desktop.Base;
 
 public class WindowBase<TViewModel> : ReactiveWindow<TViewModel> where TViewModel : class
 {
     public WindowBase()
     {
+        MacAppUtils.ConfigureWindow(this);
         Loaded += OnLoaded;
         Loaded += (s, e) =>
         {

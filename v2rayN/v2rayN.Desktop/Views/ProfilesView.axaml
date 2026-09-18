@@ -17,9 +17,10 @@
     <UserControl.Resources>
         <conv:DelayColorConverter x:Key="DelayColorConverter" />
     </UserControl.Resources>
-    <Grid>
+    <Grid Classes="content-page">
         <DockPanel>
-            <WrapPanel Margin="2" DockPanel.Dock="Top">
+            <Border Classes="content-toolbar" DockPanel.Dock="Top">
+                <WrapPanel Margin="2">
                 <ListBox
                     x:Name="lstGroup"
                     Margin="{StaticResource MarginLr4}"
@@ -98,13 +99,15 @@
                     </Button>
                 </StackPanel>
 
-            </WrapPanel>
+                </WrapPanel>
+            </Border>
             <DataGrid
                 x:Name="lstProfiles"
                 AutoGenerateColumns="False"
                 BorderThickness="1"
                 CanUserReorderColumns="True"
                 CanUserResizeColumns="True"
+                Classes="mac-data-grid"
                 Classes.InsetContent="True"
                 GridLinesVisibility="All"
                 HeadersVisibility="All"

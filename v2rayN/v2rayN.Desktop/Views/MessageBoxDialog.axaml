@@ -15,7 +15,7 @@
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
 
-    <Grid Margin="24" RowDefinitions="*,Auto">
+    <Grid Margin="24" Classes="window-content" RowDefinitions="*,Auto">
         <ScrollViewer
             Grid.Row="0"
             MinHeight="60"

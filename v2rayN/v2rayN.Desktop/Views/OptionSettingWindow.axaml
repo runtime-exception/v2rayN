@@ -15,7 +15,7 @@
     ShowInTaskbar="False"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <DockPanel Margin="{StaticResource Margin8}">
+    <DockPanel Margin="{StaticResource Margin8}" Classes="window-content">
         <StackPanel
             Margin="{StaticResource Margin4}"
             HorizontalAlignment="Center"
@@ -34,7 +34,7 @@
                 IsCancel="True" />
         </StackPanel>
 
-        <TabControl HorizontalContentAlignment="Stretch">
+        <TabControl Classes="settings-navigation" HorizontalContentAlignment="Stretch">
             <TabItem Header="{x:Static resx:ResUI.TbSettingsCore}">
                 <ScrollViewer VerticalScrollBarVisibility="Visible">
                     <Grid

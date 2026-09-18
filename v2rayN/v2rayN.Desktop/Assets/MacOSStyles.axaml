@@ -1,0 +1,241 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dialogHost="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia">
+    <Style Selector=":is(Window).macos">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource MacTextPrimaryBrush}" />
+        <Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource MacWindowFallbackBrush}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos.immersive-titlebar">
+        <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
+        <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="48" />
+    </Style>
+
+    <Style Selector=":is(Window).macos.reduce-transparency">
+        <Setter Property="Background" Value="{DynamicResource MacWindowFallbackBrush}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos Border.window-surface">
+        <Setter Property="Background" Value="{DynamicResource MacWindowTintBrush}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos DockPanel.window-content">
+        <Setter Property="Background" Value="{DynamicResource MacWindowTintBrush}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos Grid.window-content">
+        <Setter Property="Background" Value="{DynamicResource MacWindowTintBrush}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos Border.glass">
+        <Setter Property="Background" Value="{DynamicResource MacGlassBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MacGlassStrokeBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="{StaticResource MacCardCornerRadius}" />
+        <Setter Property="BoxShadow" Value="0 8 24 0 #24000000" />
+    </Style>
+
+    <Style Selector=":is(Window).macos.reduce-transparency Border.glass">
+        <Setter Property="Background" Value="{DynamicResource MacSurfaceBrush}" />
+        <Setter Property="BoxShadow" Value="0 4 14 0 #1A000000" />
+    </Style>
+
+    <Style Selector=":is(Window).macos Border.surface">
+        <Setter Property="Background" Value="{DynamicResource MacSurfaceBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MacSeparatorBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="{StaticResource MacCardCornerRadius}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos Border.toolbar">
+        <Setter Property="MinHeight" Value="{StaticResource MacToolbarHeight}" />
+        <Setter Property="Padding" Value="76,6,12,6" />
+        <Setter Property="Background" Value="{DynamicResource MacGlassStrongBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MacSeparatorBrush}" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+    </Style>
+
+    <Style Selector=":is(Window).macos Border.sidebar">
+        <Setter Property="Margin" Value="12" />
+        <Setter Property="Padding" Value="8" />
+        <Setter Property="Background" Value="{DynamicResource MacGlassBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MacGlassStrokeBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="{StaticResource MacFloatingCornerRadius}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos Border.status-strip">
+        <Setter Property="Margin" Value="12,0,12,12" />
+        <Setter Property="Padding" Value="4" />
+        <Setter Property="Background" Value="{DynamicResource MacGlassStrongBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MacGlassStrokeBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="{StaticResource MacCardCornerRadius}" />
+        <Setter Property="BoxShadow" Value="0 6 20 0 #20000000" />
+    </Style>
+
+    <Style Selector=":is(Window).macos Border.main-content">
+        <Setter Property="Margin" Value="0,12,12,12" />
+        <Setter Property="ClipToBounds" Value="True" />
+        <Setter Property="CornerRadius" Value="{StaticResource MacCardCornerRadius}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos.narrow Border.toolbar">
+        <Setter Property="Padding" Value="68,4,4,4" />
+    </Style>
+
+    <Style Selector=":is(Window).macos.narrow Border.main-content">
+        <Setter Property="Margin" Value="6" />
+    </Style>
+
+    <Style Selector=":is(Window).macos.narrow Border.status-strip">
+        <Setter Property="Margin" Value="6,0,6,6" />
+    </Style>
+
+    <Style Selector=":is(Window).macos.narrow :is(Control).status-secondary">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+    <Style Selector=":is(Window).macos Border.content-toolbar">
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="Padding" Value="6" />
+        <Setter Property="Background" Value="{DynamicResource MacSurfaceSecondaryBrush}" />
+        <Setter Property="CornerRadius" Value="{StaticResource MacControlCornerRadius}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos :is(Control).content-page">
+        <Setter Property="Margin" Value="6" />
+    </Style>
+
+    <Style Selector=":is(Window).macos ListBox.source-list">
+        <Setter Property="MinWidth" Value="172" />
+        <Setter Property="Margin" Value="8" />
+        <Setter Property="Background" Value="{DynamicResource MacSurfaceSecondaryBrush}" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+
+    <Style Selector=":is(Window).macos Button">
+        <Setter Property="MinHeight" Value="{StaticResource MacControlHeight}" />
+        <Setter Property="CornerRadius" Value="{StaticResource MacControlCornerRadius}" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.12" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector=":is(Window).macos Button:pointerover">
+        <Setter Property="Opacity" Value="0.9" />
+    </Style>
+
+    <Style Selector=":is(Window).macos Button:pressed">
+        <Setter Property="Opacity" Value="0.72" />
+    </Style>
+
+    <Style Selector=":is(Window).macos Button:focus-visible">
+        <Setter Property="BorderBrush" Value="{DynamicResource MacFocusBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+    </Style>
+
+    <Style Selector=":is(Window).macos Button:disabled">
+        <Setter Property="Opacity" Value="0.45" />
+    </Style>
+
+    <Style Selector=":is(Window).macos.reduce-motion Button">
+        <Setter Property="Transitions" Value="{x:Null}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos dialogHost|DialogHost">
+        <Setter Property="DisableOpeningAnimation" Value="False" />
+        <Setter Property="OverlayBackground" Value="#52000000" />
+        <Setter Property="Background" Value="{DynamicResource MacGlassStrongBrush}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos.reduce-motion dialogHost|DialogHost">
+        <Setter Property="DisableOpeningAnimation" Value="True" />
+    </Style>
+
+    <Style Selector=":is(Window).macos Button.nav-item">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Padding" Value="10,7" />
+        <Setter Property="Margin" Value="0,2" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Theme" Value="{DynamicResource BorderlessButton}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos Button.nav-item:pointerover">
+        <Setter Property="Background" Value="{DynamicResource MacHoverBrush}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos Button.nav-item.selected">
+        <Setter Property="Background" Value="{DynamicResource MacSelectedBrush}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos Button.nav-item.selected PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource MacAccentBrush}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos TextBox">
+        <Setter Property="MinHeight" Value="{StaticResource MacControlHeight}" />
+        <Setter Property="CornerRadius" Value="{StaticResource MacControlCornerRadius}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos TextBox:focus">
+        <Setter Property="BorderBrush" Value="{DynamicResource MacFocusBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+    </Style>
+
+    <Style Selector=":is(Window).macos ComboBox">
+        <Setter Property="MinHeight" Value="{StaticResource MacControlHeight}" />
+        <Setter Property="CornerRadius" Value="{StaticResource MacControlCornerRadius}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos DataGrid">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="GridLinesVisibility" Value="Horizontal" />
+        <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource MacSeparatorBrush}" />
+        <Setter Property="VerticalGridLinesBrush" Value="Transparent" />
+        <Setter Property="RowHeight" Value="34" />
+    </Style>
+
+    <Style Selector=":is(Window).macos DataGridRow:pointerover">
+        <Setter Property="Background" Value="{DynamicResource MacHoverBrush}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos DataGridRow:selected">
+        <Setter Property="Background" Value="{DynamicResource MacSelectedBrush}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos ScrollViewer">
+        <Setter Property="AllowAutoHide" Value="True" />
+    </Style>
+
+    <Style Selector=":is(Window).macos TabControl.settings-navigation">
+        <Setter Property="TabStripPlacement" Value="Left" />
+    </Style>
+
+    <Style Selector=":is(Window).macos:not(.narrow) TabControl.main-tabs TabItem">
+        <Setter Property="Width" Value="0" />
+        <Setter Property="Height" Value="0" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Opacity" Value="0" />
+        <Setter Property="IsHitTestVisible" Value="False" />
+    </Style>
+
+    <Style Selector=":is(Window).macos.increase-contrast Border.glass">
+        <Setter Property="BorderBrush" Value="{DynamicResource MacTextSecondaryBrush}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos.increase-contrast Border.surface">
+        <Setter Property="BorderBrush" Value="{DynamicResource MacTextSecondaryBrush}" />
+    </Style>
+
+    <Style Selector=":is(Window).macos.increase-contrast Border.sidebar">
+        <Setter Property="BorderBrush" Value="{DynamicResource MacTextSecondaryBrush}" />
+    </Style>
+</Styles>

@@ -13,12 +13,12 @@
     Design.DataContext="{x:Static dd:DesignData.ClashConnections}"
     mc:Ignorable="d">
 
-    <DockPanel Margin="2">
-        <WrapPanel
-            Margin="{StaticResource Margin4}"
-            VerticalAlignment="Center"
-            DockPanel.Dock="Top"
-            Orientation="Horizontal">
+    <DockPanel Margin="2" Classes="content-page">
+        <Border Classes="content-toolbar" DockPanel.Dock="Top">
+            <WrapPanel
+                Margin="{StaticResource Margin4}"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
 
             <TextBox
                 x:Name="txtHostFilter"
@@ -55,13 +55,15 @@
                 x:Name="togAutoRefresh"
                 Margin="{StaticResource MarginLr8}"
                 HorizontalAlignment="Left" />
-        </WrapPanel>
+            </WrapPanel>
+        </Border>
 
         <DataGrid
             x:Name="lstConnections"
             AutoGenerateColumns="False"
             BorderThickness="1"
             CanUserResizeColumns="True"
+            Classes="mac-data-grid"
             GridLinesVisibility="All"
             HeadersVisibility="Column"
             IsReadOnly="True"

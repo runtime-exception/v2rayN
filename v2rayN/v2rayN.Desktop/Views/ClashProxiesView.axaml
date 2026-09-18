@@ -17,12 +17,12 @@
         <conv:DelayColorConverter x:Key="DelayColorConverter" />
     </UserControl.Resources>
 
-    <DockPanel Margin="2">
-        <WrapPanel
-            Margin="{StaticResource Margin4}"
-            VerticalAlignment="Center"
-            DockPanel.Dock="Top"
-            Orientation="Horizontal">
+    <DockPanel Margin="2" Classes="content-page">
+        <Border Classes="content-toolbar" DockPanel.Dock="Top">
+            <WrapPanel
+                Margin="{StaticResource Margin4}"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
 
             <TextBlock
                 Margin="{StaticResource MarginLr8}"
@@ -80,10 +80,12 @@
                 x:Name="togAutoRefresh"
                 Margin="{StaticResource MarginLr8}"
                 HorizontalAlignment="Left" />
-        </WrapPanel>
+            </WrapPanel>
+        </Border>
         <DockPanel>
             <ListBox
                 x:Name="lstProxyGroups"
+                Classes="source-list"
                 DockPanel.Dock="Left"
                 ItemsSource="{Binding ProxyGroups}">
                 <ItemsControl.ItemsPanel>

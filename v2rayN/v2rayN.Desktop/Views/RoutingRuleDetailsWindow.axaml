@@ -15,7 +15,7 @@
     ShowInTaskbar="False"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <DockPanel>
+    <DockPanel Classes="window-content">
         <Grid
             Margin="{StaticResource Margin4}"
             ColumnDefinitions="Auto,Auto,*"

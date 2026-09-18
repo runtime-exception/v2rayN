@@ -12,6 +12,7 @@ public partial class MessageBoxDialog : Window
     public MessageBoxDialog(string caption, string message)
     {
         InitializeComponent();
+        MacAppUtils.ConfigureWindow(this);
 
         if (Design.IsDesignMode)
         {

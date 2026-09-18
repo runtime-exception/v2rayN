@@ -15,7 +15,7 @@
     ShowInTaskbar="False"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <DockPanel>
+    <DockPanel Classes="window-content">
         <Menu Margin="{StaticResource Margin4}" DockPanel.Dock="Top">
             <MenuItem x:Name="menuRuleAdd" Header="{x:Static resx:ResUI.menuRuleAdd}" />
             <MenuItem x:Name="menuImportRulesFromFile" Header="{x:Static resx:ResUI.menuImportRulesFromFile}" />

@@ -20,7 +20,7 @@
         <conv:DelayColorConverter x:Key="DelayColorConverter" />
     </Window.Resources>
 
-    <DockPanel Margin="{StaticResource Margin8}">
+    <DockPanel Margin="{StaticResource Margin8}" Classes="window-content">
         <StackPanel
             Margin="{StaticResource Margin4}"
             HorizontalAlignment="Center"

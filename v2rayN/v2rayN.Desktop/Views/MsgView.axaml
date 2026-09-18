@@ -11,12 +11,12 @@
     d:DesignWidth="800"
     Design.DataContext="{x:Static dd:DesignData.Msg}"
     mc:Ignorable="d">
-    <DockPanel Margin="2">
-        <WrapPanel
-            Margin="{StaticResource Margin4}"
-            VerticalAlignment="Center"
-            DockPanel.Dock="Top"
-            Orientation="Horizontal">
+    <DockPanel Margin="2" Classes="content-page">
+        <Border Classes="content-toolbar" DockPanel.Dock="Top">
+            <WrapPanel
+                Margin="{StaticResource Margin4}"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
 
             <TextBox
                 x:Name="cmbMsgFilter"
@@ -65,7 +65,8 @@
                 HorizontalAlignment="Left"
                 IsChecked="True"
                 Theme="{DynamicResource SimpleToggleSwitch}" />
-        </WrapPanel>
+            </WrapPanel>
+        </Border>
 
         <avaloniaEdit:TextEditor
             Name="txtMsg"

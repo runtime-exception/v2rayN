@@ -12,6 +12,7 @@
     Width="1200"
     Height="800"
     MinWidth="600"
+    Classes="immersive-titlebar"
     x:DataType="vms:MainWindowViewModel"
     Design.DataContext="{x:Static dd:DesignData.MainWindow}"
     Icon="/Assets/NotifyIcon1.ico"
@@ -19,10 +20,15 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <dialogHost:DialogHost CloseOnClickAway="True" DisableOpeningAnimation="True">
-        <DockPanel>
-            <DockPanel Margin="{StaticResource Margin8}" DockPanel.Dock="Top">
-                <ContentControl x:Name="conTheme" DockPanel.Dock="Right" />
-                <Menu Margin="{StaticResource Margin4}">
+        <Border Classes="window-surface">
+            <DockPanel>
+                <Border
+                    Classes="toolbar"
+                    DockPanel.Dock="Top"
+                    WindowDecorationProperties.ElementRole="TitleBar">
+                    <DockPanel Margin="{StaticResource Margin8}">
+                        <ContentControl x:Name="conTheme" DockPanel.Dock="Right" />
+                        <Menu Margin="{StaticResource Margin4}">
                     <MenuItem Header="{x:Static resx:ResUI.menuServers}">
                         <MenuItem
                             x:Name="menuAddServerViaClipboard"
@@ -101,58 +107,176 @@
                     <MenuItem x:Name="menuPromotion" Header="{x:Static resx:ResUI.menuPromotion}" />
 
                     <MenuItem x:Name="menuClose" Header="{x:Static resx:ResUI.menuExit}" />
-                </Menu>
 
-                <Button
-                    x:Name="btnNewUpdate"
-                    Margin="{StaticResource MarginLr8}"
-                    HorizontalAlignment="Left"
-                    Content="{x:Static resx:ResUI.menuNewUpdate}"
-                    IsVisible="False" />
+                    <MenuItem
+                        x:Name="menuMacMore"
+                        Header="•••"
+                        IsVisible="False">
+                        <MenuItem x:Name="menuMacReload" Header="{x:Static resx:ResUI.menuReload}" />
+                        <MenuItem x:Name="menuMacPromotion" Header="{x:Static resx:ResUI.menuPromotion}" />
+                        <Separator />
+                        <MenuItem x:Name="menuMacClose" Header="{x:Static resx:ResUI.menuExit}" />
+                    </MenuItem>
+                        </Menu>
+
+                        <Button
+                            x:Name="btnNewUpdate"
+                            Margin="{StaticResource MarginLr8}"
+                            HorizontalAlignment="Left"
+                            Content="{x:Static resx:ResUI.menuNewUpdate}"
+                            IsVisible="False" />
+                    </DockPanel>
+                </Border>
+
+                <Border Classes="status-strip" DockPanel.Dock="Bottom">
+                    <ContentControl x:Name="contentStatusBarView" />
+                </Border>
+
+                <Grid ColumnDefinitions="Auto,*">
+                    <Border
+                        x:Name="navSidebar"
+                        Grid.Column="0"
+                        Classes="sidebar"
+                        IsVisible="False">
+                        <Grid RowDefinitions="Auto,*,Auto">
+                            <StackPanel Margin="8,8,8,16">
+                                <TextBlock FontSize="18" FontWeight="SemiBold" Text="v2rayN" />
+                                <TextBlock
+                                    x:Name="txtSidebarSubtitle"
+                                    Foreground="{DynamicResource MacTextSecondaryBrush}"
+                                    Text="macOS"
+                                    TextWrapping="NoWrap" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="1">
+                                <Button
+                                    x:Name="btnNavServers"
+                                    Classes="nav-item selected"
+                                    Click="NavigationButton_Click"
+                                    AutomationProperties.Name="{x:Static resx:ResUI.menuServers}"
+                                    Tag="Servers"
+                                    ToolTip.Tip="{x:Static resx:ResUI.menuServers}">
+                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                        <PathIcon Data="{StaticResource building_more}" />
+                                        <TextBlock
+                                            x:Name="txtNavServers"
+                                            VerticalAlignment="Center"
+                                            Text="{x:Static resx:ResUI.menuServers}" />
+                                    </StackPanel>
+                                </Button>
+                                <Button
+                                    x:Name="btnNavInformation"
+                                    Classes="nav-item"
+                                    Click="NavigationButton_Click"
+                                    AutomationProperties.Name="{x:Static resx:ResUI.MsgInformationTitle}"
+                                    Tag="Information"
+                                    ToolTip.Tip="{x:Static resx:ResUI.MsgInformationTitle}">
+                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                        <PathIcon Data="{StaticResource SemiIconEdit}" />
+                                        <TextBlock
+                                            x:Name="txtNavInformation"
+                                            VerticalAlignment="Center"
+                                            Text="{x:Static resx:ResUI.MsgInformationTitle}" />
+                                    </StackPanel>
+                                </Button>
+                                <Button
+                                    x:Name="btnNavProxies"
+                                    Classes="nav-item"
+                                    Click="NavigationButton_Click"
+                                    AutomationProperties.Name="{x:Static resx:ResUI.TbProxies}"
+                                    Tag="Proxies"
+                                    ToolTip.Tip="{x:Static resx:ResUI.TbProxies}">
+                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                        <PathIcon Data="{StaticResource building_ping}" />
+                                        <TextBlock
+                                            x:Name="txtNavProxies"
+                                            VerticalAlignment="Center"
+                                            Text="{x:Static resx:ResUI.TbProxies}" />
+                                    </StackPanel>
+                                </Button>
+                                <Button
+                                    x:Name="btnNavConnections"
+                                    Classes="nav-item"
+                                    Click="NavigationButton_Click"
+                                    AutomationProperties.Name="{x:Static resx:ResUI.TbConnections}"
+                                    Tag="Connections"
+                                    ToolTip.Tip="{x:Static resx:ResUI.TbConnections}">
+                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                        <PathIcon Data="{StaticResource SemiIconBolt}" />
+                                        <TextBlock
+                                            x:Name="txtNavConnections"
+                                            VerticalAlignment="Center"
+                                            Text="{x:Static resx:ResUI.TbConnections}" />
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+
+                            <Border
+                                Grid.Row="2"
+                                Margin="4"
+                                Padding="10"
+                                Classes="surface">
+                                <StackPanel>
+                                    <TextBlock FontWeight="SemiBold" Text="{Binding StatusBarViewModel.RunningServerDisplay}" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock
+                                        x:Name="txtSidebarStatus"
+                                        Foreground="{DynamicResource MacTextSecondaryBrush}"
+                                        Text="{Binding StatusBarViewModel.RunningInfoDisplay}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Column="1" Classes="main-content surface">
+                        <Grid>
+                            <Grid
+                                x:Name="gridMain"
+                                ColumnDefinitions="1*,10,1*"
+                                IsVisible="False">
+                                <ContentControl x:Name="tabProfiles" Grid.Column="0" />
+                                <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
+                                <TabControl
+                                    x:Name="tabMain"
+                                    Grid.Column="2"
+                                    Classes="main-tabs"
+                                    HorizontalContentAlignment="Left">
+                                    <TabItem x:Name="tabMsgView" Header="{x:Static resx:ResUI.MsgInformationTitle}" />
+                                    <TabItem x:Name="tabClashProxies" Header="{x:Static resx:ResUI.TbProxies}" />
+                                    <TabItem x:Name="tabClashConnections" Header="{x:Static resx:ResUI.TbConnections}" />
+                                </TabControl>
+                            </Grid>
+                            <Grid
+                                x:Name="gridMain1"
+                                IsVisible="False"
+                                RowDefinitions="1*,10,1*">
+                                <ContentControl x:Name="tabProfiles1" Grid.Row="0" />
+                                <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" />
+                                <TabControl
+                                    x:Name="tabMain1"
+                                    Grid.Row="2"
+                                    Classes="main-tabs"
+                                    TabStripPlacement="Left">
+                                    <TabItem x:Name="tabMsgView1" Header="{x:Static resx:ResUI.MsgInformationTitle}" />
+                                    <TabItem x:Name="tabClashProxies1" Header="{x:Static resx:ResUI.TbProxies}" />
+                                    <TabItem x:Name="tabClashConnections1" Header="{x:Static resx:ResUI.TbConnections}" />
+                                </TabControl>
+                            </Grid>
+                            <Grid x:Name="gridMain2" IsVisible="False">
+                                <TabControl
+                                    x:Name="tabMain2"
+                                    Classes="main-tabs"
+                                    TabStripPlacement="Left">
+                                    <TabItem x:Name="tabProfiles2" Header="{x:Static resx:ResUI.menuServers}" />
+                                    <TabItem x:Name="tabMsgView2" Header="{x:Static resx:ResUI.MsgInformationTitle}" />
+                                    <TabItem x:Name="tabClashProxies2" Header="{x:Static resx:ResUI.TbProxies}" />
+                                    <TabItem x:Name="tabClashConnections2" Header="{x:Static resx:ResUI.TbConnections}" />
+                                </TabControl>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
             </DockPanel>
-
-            <ContentControl x:Name="contentStatusBarView" DockPanel.Dock="Bottom" />
-
-            <Grid>
-                <Grid
-                    x:Name="gridMain"
-                    ColumnDefinitions="1*,10,1*"
-                    IsVisible="False">
-                    <ContentControl x:Name="tabProfiles" Grid.Column="0" />
-                    <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
-                    <TabControl
-                        x:Name="tabMain"
-                        Grid.Column="2"
-                        HorizontalContentAlignment="Left">
-                        <TabItem x:Name="tabMsgView" Header="{x:Static resx:ResUI.MsgInformationTitle}" />
-                        <TabItem x:Name="tabClashProxies" Header="{x:Static resx:ResUI.TbProxies}" />
-                        <TabItem x:Name="tabClashConnections" Header="{x:Static resx:ResUI.TbConnections}" />
-                    </TabControl>
-                </Grid>
-                <Grid
-                    x:Name="gridMain1"
-                    IsVisible="False"
-                    RowDefinitions="1*,10,1*">
-                    <ContentControl x:Name="tabProfiles1" Grid.Row="0" />
-                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" />
-                    <TabControl
-                        x:Name="tabMain1"
-                        Grid.Row="2"
-                        TabStripPlacement="Left">
-                        <TabItem x:Name="tabMsgView1" Header="{x:Static resx:ResUI.MsgInformationTitle}" />
-                        <TabItem x:Name="tabClashProxies1" Header="{x:Static resx:ResUI.TbProxies}" />
-                        <TabItem x:Name="tabClashConnections1" Header="{x:Static resx:ResUI.TbConnections}" />
-                    </TabControl>
-                </Grid>
-                <Grid x:Name="gridMain2" IsVisible="False">
-                    <TabControl x:Name="tabMain2" TabStripPlacement="Left">
-                        <TabItem x:Name="tabProfiles2" Header="{x:Static resx:ResUI.menuServers}" />
-                        <TabItem x:Name="tabMsgView2" Header="{x:Static resx:ResUI.MsgInformationTitle}" />
-                        <TabItem x:Name="tabClashProxies2" Header="{x:Static resx:ResUI.TbProxies}" />
-                        <TabItem x:Name="tabClashConnections2" Header="{x:Static resx:ResUI.TbConnections}" />
-                    </TabControl>
-                </Grid>
-            </Grid>
-        </DockPanel>
+        </Border>
     </dialogHost:DialogHost>
 </Window>

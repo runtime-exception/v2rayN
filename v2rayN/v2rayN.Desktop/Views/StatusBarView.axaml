@@ -10,15 +10,18 @@
     x:DataType="vms:StatusBarViewModel"
     Design.DataContext="{x:Static dd:DesignData.StatusBar}"
     mc:Ignorable="d">
-    <Grid>
-        <DockPanel Margin="{StaticResource Margin8}">
+    <Grid Classes="status-view">
+        <DockPanel Margin="{StaticResource Margin4}">
             <StackPanel
                 Margin="{StaticResource MarginLr8}"
                 VerticalAlignment="Center"
                 DockPanel.Dock="Right">
                 <TextBlock x:Name="txtSpeedProxyDisplay" HorizontalAlignment="Right" />
                 <Border Margin="1" />
-                <TextBlock x:Name="txtSpeedDirectDisplay" HorizontalAlignment="Right" />
+                <TextBlock
+                    x:Name="txtSpeedDirectDisplay"
+                    Classes="status-secondary"
+                    HorizontalAlignment="Right" />
             </StackPanel>
 
             <StackPanel
@@ -27,7 +30,7 @@
                 DockPanel.Dock="Left">
                 <TextBlock x:Name="txtInboundDisplay" />
                 <Border Margin="1" />
-                <TextBlock x:Name="txtInboundLanDisplay" />
+                <TextBlock x:Name="txtInboundLanDisplay" Classes="status-secondary" />
             </StackPanel>
 
             <StackPanel

@@ -20,7 +20,7 @@
         CloseOnClickAway="True"
         DisableOpeningAnimation="True"
         Identifier="dialogHostSub">
-        <DockPanel Margin="{StaticResource Margin8}">
+        <DockPanel Margin="{StaticResource Margin8}" Classes="window-content">
             <Menu Margin="{StaticResource Margin4}" DockPanel.Dock="Top">
                 <MenuItem x:Name="menuSubAdd" Header="{x:Static resx:ResUI.menuSubAdd}" />
                 <MenuItem x:Name="menuSubDelete" Header="{x:Static resx:ResUI.menuSubDelete}" />

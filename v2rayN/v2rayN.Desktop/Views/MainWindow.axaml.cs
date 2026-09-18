@@ -14,6 +14,8 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
     private CheckUpdateView? _checkUpdateView;
     private BackupAndRestoreView? _backupAndRestoreView;
     private bool _blCloseByUser = false;
+    private string? _responsiveMode;
+    private EGirdOrientation _effectiveOrientation;
 
     public MainWindow()
     {
@@ -29,6 +31,18 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         btnNewUpdate.Click += MenuCheckUpdate_Click;
         menuBackupAndRestore.Click += MenuBackupAndRestore_Click;
         menuClose.Click += MenuClose_Click;
+
+        if (Utils.IsMacOS())
+        {
+            menuReload.IsVisible = false;
+            menuPromotion.IsVisible = false;
+            menuClose.IsVisible = false;
+            menuMacMore.IsVisible = true;
+            menuMacPromotion.Click += MenuPromotion_Click;
+            menuMacClose.Click += MenuClose_Click;
+            navSidebar.IsVisible = true;
+            SizeChanged += MainWindow_SizeChanged;
+        }
 
         conTheme.Content ??= new ThemeSettingView();
 
@@ -75,8 +89,12 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
             this.BindCommand(ViewModel, vm => vm.RegionalPresetIranCmd, v => v.menuRegionalPresetsIran).DisposeWith(disposables);
 
             this.BindCommand(ViewModel, vm => vm.ReloadCmd, v => v.menuReload).DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.ReloadCmd, v => v.menuMacReload).DisposeWith(disposables);
             this.OneWayBind(ViewModel, vm => vm.BlReloadEnabled, v => v.menuReload.IsEnabled).DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.BlReloadEnabled, v => v.menuMacReload.IsEnabled).DisposeWith(disposables);
             this.OneWayBind(ViewModel, vm => vm.BlNewUpdate, v => v.btnNewUpdate.IsVisible).DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.ShowClashUI, v => v.btnNavProxies.IsVisible).DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.ShowClashUI, v => v.btnNavConnections.IsVisible).DisposeWith(disposables);
 
             this.OneWayBind(ViewModel, vm => vm.StatusBarViewModel, v => v.contentStatusBarView.Content).DisposeWith(disposables);
 
@@ -85,6 +103,11 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
             this.WhenAnyValue(v => v.ViewModel.MainGirdOrientation)
                 .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(UpdateLayout)
+                .DisposeWith(disposables);
+
+            this.WhenAnyValue(v => v.ViewModel.TabMainSelectedIndex)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
+                .Subscribe(_ => UpdateNavigationSelection())
                 .DisposeWith(disposables);
 
             ViewModel.ReadTextFromClipboardInteraction.RegisterHandler(async interaction =>
@@ -158,6 +181,42 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
     }
 
     #region Event
+
+    private void MainWindow_SizeChanged(object? sender, SizeChangedEventArgs e)
+    {
+        UpdateResponsiveLayout(e.NewSize.Width);
+    }
+
+    private void NavigationButton_Click(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Button { Tag: string destination } || ViewModel is null)
+        {
+            return;
+        }
+
+        var navigationIndex = destination switch
+        {
+            "Information" => 1,
+            "Proxies" => 2,
+            "Connections" => 3,
+            _ => 0,
+        };
+
+        if (_effectiveOrientation == EGirdOrientation.Tab)
+        {
+            ViewModel.TabMainSelectedIndex = navigationIndex;
+        }
+        else if (navigationIndex == 0)
+        {
+            (tabProfiles.Content as Control ?? tabProfiles1.Content as Control)?.Focus();
+        }
+        else
+        {
+            ViewModel.TabMainSelectedIndex = navigationIndex - 1;
+        }
+
+        UpdateNavigationSelection(navigationIndex);
+    }
 
     private void OnProgramStarted(object state, bool timeout)
     {
@@ -366,19 +425,21 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         {
             ShowHideWindow(false);
         }
-        RestoreUI();
+        UpdateResponsiveLayout(Bounds.Width);
+        RestoreUI(_effectiveOrientation);
     }
 
-    private void RestoreUI()
+    private void RestoreUI(EGirdOrientation? orientation = null)
     {
         if (_config.UiItem.MainGirdHeight1 > 0 && _config.UiItem.MainGirdHeight2 > 0)
         {
-            if (_config.UiItem.MainGirdOrientation == EGirdOrientation.Horizontal)
+            var currentOrientation = orientation ?? _config.UiItem.MainGirdOrientation;
+            if (currentOrientation == EGirdOrientation.Horizontal)
             {
                 gridMain.ColumnDefinitions[0].Width = new GridLength(_config.UiItem.MainGirdHeight1, GridUnitType.Star);
                 gridMain.ColumnDefinitions[2].Width = new GridLength(_config.UiItem.MainGirdHeight2, GridUnitType.Star);
             }
-            else if (_config.UiItem.MainGirdOrientation == EGirdOrientation.Vertical)
+            else if (currentOrientation == EGirdOrientation.Vertical)
             {
                 gridMain1.RowDefinitions[0].Height = new GridLength(_config.UiItem.MainGirdHeight1, GridUnitType.Star);
                 gridMain1.RowDefinitions[2].Height = new GridLength(_config.UiItem.MainGirdHeight2, GridUnitType.Star);
@@ -389,6 +450,11 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
     private void StorageUI()
     {
         ConfigHandler.SaveWindowSizeItem(_config, GetType().Name, Width, Height);
+
+        if (Utils.IsMacOS() && _effectiveOrientation != _config.UiItem.MainGirdOrientation)
+        {
+            return;
+        }
 
         if (_config.UiItem.MainGirdOrientation == EGirdOrientation.Horizontal)
         {
@@ -402,16 +468,21 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
 
     private void UpdateLayout(EGirdOrientation orientation)
     {
+        var effectiveOrientation = Utils.IsMacOS() && Bounds.Width is > 0 and < 760
+            ? EGirdOrientation.Tab
+            : orientation;
+        _effectiveOrientation = effectiveOrientation;
+
         var currentLayoutDisposables = new MultipleDisposable();
         _layoutBindingsDisposable.Create(currentLayoutDisposables);
 
         ClearLayoutContent();
 
-        gridMain.IsVisible = orientation == EGirdOrientation.Horizontal;
-        gridMain1.IsVisible = orientation == EGirdOrientation.Vertical;
-        gridMain2.IsVisible = orientation == EGirdOrientation.Tab;
+        gridMain.IsVisible = effectiveOrientation == EGirdOrientation.Horizontal;
+        gridMain1.IsVisible = effectiveOrientation == EGirdOrientation.Vertical;
+        gridMain2.IsVisible = effectiveOrientation == EGirdOrientation.Tab;
 
-        switch (orientation)
+        switch (effectiveOrientation)
         {
             case EGirdOrientation.Horizontal:
                 this.OneWayBind(ViewModel, vm => vm.ProfilesViewModel, v => v.tabProfiles.Content).DisposeWith(currentLayoutDisposables);
@@ -447,7 +518,94 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
                 break;
         }
 
-        RestoreUI();
+        RestoreUI(effectiveOrientation);
+        UpdateNavigationSelection();
+    }
+
+    private void UpdateResponsiveLayout(double width)
+    {
+        if (!Utils.IsMacOS())
+        {
+            return;
+        }
+
+        var mode = width switch
+        {
+            >= 1000 => "expanded",
+            >= 760 => "compact",
+            _ => "narrow",
+        };
+        if (_responsiveMode == mode)
+        {
+            return;
+        }
+
+        SetWindowClass("compact", mode == "compact");
+        SetWindowClass("narrow", mode == "narrow");
+
+        var expanded = mode == "expanded";
+        navSidebar.IsVisible = mode != "narrow";
+        navSidebar.Width = expanded ? 220 : 64;
+
+        txtSidebarSubtitle.IsVisible = expanded;
+        txtSidebarStatus.IsVisible = expanded;
+        txtNavServers.IsVisible = expanded;
+        txtNavInformation.IsVisible = expanded;
+        txtNavProxies.IsVisible = expanded;
+        txtNavConnections.IsVisible = expanded;
+
+        _responsiveMode = mode;
+        if (ViewModel is not null)
+        {
+            UpdateLayout(ViewModel.MainGirdOrientation);
+        }
+    }
+
+    private void UpdateNavigationSelection(int? requestedIndex = null)
+    {
+        if (!Utils.IsMacOS() || ViewModel is null)
+        {
+            return;
+        }
+
+        var index = requestedIndex ?? (_effectiveOrientation == EGirdOrientation.Tab
+            ? ViewModel.TabMainSelectedIndex
+            : ViewModel.TabMainSelectedIndex + 1);
+
+        SetSelected(btnNavServers, index == 0);
+        SetSelected(btnNavInformation, index == 1);
+        SetSelected(btnNavProxies, index == 2);
+        SetSelected(btnNavConnections, index == 3);
+    }
+
+    private void SetWindowClass(string name, bool enabled)
+    {
+        if (enabled)
+        {
+            if (!Classes.Contains(name))
+            {
+                Classes.Add(name);
+            }
+        }
+        else
+        {
+            Classes.Remove(name);
+        }
+    }
+
+    private static void SetSelected(Button button, bool selected)
+    {
+        if (selected)
+        {
+            if (!button.Classes.Contains("selected"))
+            {
+                button.Classes.Add("selected");
+            }
+        }
+        else
+        {
+            button.Classes.Remove("selected");
+        }
     }
 
     private void ClearLayoutContent()
